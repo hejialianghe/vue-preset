@@ -18,12 +18,10 @@
 }
 
 @mixin text-overflow($line) {
-  display:-webkit-box;  
-  overflow:hidden;  
-  -webkit-box-orient:vertical; 
-  text-overflow:ellipsis;
+  display:-webkit-box;  overflow:hidden;  -webkit-box-orient:vertical; text-overflow:ellipsis;
+
   -webkit-line-clamp:$line; 
-}
+  }
 
 @mixin cm() {
   display: block;
@@ -68,7 +66,7 @@
   height: $height;
 }
 
-@mixin line-height ($height) {
+@mixin mid ($height) {
   height: $height;
   line-height: $height;
 }

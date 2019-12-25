@@ -1,389 +1,233 @@
 <template>
-	<div class="login" v-if="loginStatus" @click.stop.self="resetLoginData">
-		<div class="login__container">
-			<div class="sms" v-show="loginShow">
-				<div class="field van-hairline--bottom">
-					<div class="input__wrap">
-						<input v-model="phone" type="number" placeholder="请输入手机号">
-					</div>
-				</div>
-				<div class="field van-hairline--bottom">
-					<div class="input__wrap">
-						<input v-model="sms" type="number" placeholder="请输入短信验证码">
-						<div @click="sendSms" :class="{disabled: verCodeStatus === 1}">
-							<span>{{btnDesc}}</span>
-						</div>
-					</div>
-				</div>
-				<div class="confirm" :class="{canNologin: !canLogin}" @click="phoneValidate">
-					<span>确定</span>
-				</div>
-			</div>
-			<div class="imgSms" v-show="imgAuthCodeShow">
-				<div class="field van-hairline--bottom">
-					<div class="input__wrap">
-						<input v-model="imgSms" type="text" placeholder="请输入图形验证码">
-						<div class="imgContent">
-							<img :src="imgAuthCodeSrc" alt="">
-						</div>
-					</div>
-				</div>
-				<div class="confirm" :class="{canNologin: !canCloseImgAuth}" @click="imgValidate">
-					<span>确定</span>
-				</div>
-			</div>
-		</div>
-	</div>
+   <div class="login_main">
+    <div class="login_form">
+      <div class="form_title">
+        <p><img src="~@/assets/images/logo_03.png">澳门政务服务</p>
+        <p><span>用户登陆</span></p>
+      </div>
+      <div class="form_input">
+        <div :class="{ 'inputError': accountError, 'account-focus': accountFocus }">
+          <van-field
+            @input="accountError = false"
+            @focus="onFocus(1)"
+            @blur="onBlur(1)"
+            v-model="user.account"
+            placeholder="请输入您的登录账号"
+            :error="accountError"
+          >
+            <i slot="left-icon" class="am-icon-zhanghao" />
+          </van-field>
+        </div>
+        <div :class="{ 'inputError': pwdError, 'pass-focus': passFocus }">
+          <van-field
+            @input="pwdError = false"
+            :readonly="readonly"
+            @focus="onFocus(2)"
+            @blur="onBlur(2)"
+            v-model="user.pwd"
+            type="password"
+            placeholder="请输入您的登录密码"
+            :error="pwdError"
+          >
+            <i slot="left-icon" class="am-icon-mima" />
+          </van-field>
+        </div>
+        <div class="retrievePwd">
+          找回密码
+        </div>
+      </div>
+    </div>
+    <div class="login_botton">
+      <p>还没有注册账号？<span>立即注册 <i class="am-icon-xiangqing" /></span></p>
+      <van-button :loading="loading" @click="login">登录</van-button>
+    </div>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
-import { mapState, mapGetters, mapMutations } from 'vuex'
-import formChecker from '@/module/formChecker'
-import { ModalHelper } from '@/module/common'
-
+import md5 from '@/module/md5.min.js'
+import { mapMutations, mapActions } from 'vuex'
 export default {
-  name: '',
-  props: ['registerType'],
+  name: 'Login',
   data () {
     return {
-      loginShow: false, // 是否显示登录弹层
-      imgAuthCodeShow: false, // 是否显示图形验证码弹层
-      phone: '', // 手机号
-      sms: '', // 短信验证码
-      imgSms: '', // 短信验证码
-      phoneErrorMsg: '', // 手机号输入错误提示
-      smsErrorMsg: '', // 短信验证码输入错误提示
-      imgErrorMsg: '', // 图形验证码输入错误提示
-      verCodeStatus: 0, // 0 获取验证码 1 倒计时 2 重新获取
-      imgAuthCodeSrc: '', // 图形验证码url
-      btnDesc: '获取验证码', // 按钮文字
-      timer: null
+      accountError: false,
+      pwdError: false,
+      loading: false,
+      user: {
+        account: '',
+        pwd: ''
+      },
+      readonly: true,
+      accountFocus: false,
+      passFocus: false
     }
   },
+  created () {},
   computed: {
-    canLogin () {
-      return formChecker.checkPhoneAndVerCode(this.phone, this.sms)
-    },
-    canCloseImgAuth () {
-      return formChecker.checkAuthCode(this.imgSms)
-    },
-    ...mapState(['loginStatus']),
-    ...mapGetters(['openId'])
   },
   methods: {
-    // 重置登录框
-    resetLoginData (isAll) {
-      this.loginShow = false
-      this.imgAuthCodeShow = false
-      this.setLoginStatus(false)
-      if (isAll === true) {
-        this.phone = ''
-        this.sms = ''
-        this.imgSms = ''
-        this.imgAuthCodeSrc = ''
-        this.verCodeStatus = 0
-        clearInterval(this.timer)
+    onFocus (mark) {
+      this.readonly = false
+      if (mark === 1) {
+        // 账号被focus
+        this.accountFocus = true
+      } else if (mark === 2) {
+        // 密码被focus
+        this.passFocus = true
       }
     },
-    // 倒计时
-    countDown () {
-      this.btnDesc = '60S'
-      this.timer = setInterval(() => {
-        let seconds = this.btnDesc.replace('S', '')
-        seconds--
-        this.btnDesc = seconds + 'S'
-        if (seconds === 0) {
-          clearInterval(this.timer)
-          this.verCodeStatus = 2
-          this.btnDesc = '重新获取'
-        }
-      }, 1000)
-    },
-    // 短信验证码验证
-    async phoneValidate () {
-      try {
-        if (!this.canLogin) return
-        if (this.isWx) {
-          // 微信环境登录
-          await this.wxbindLogin()
-        } else {
-          // 普通浏览器登录
-          await this.login()
-        }
-        this.$emit('loginGo')
-        this.resetLoginData(true)
-      } catch (error) {
-        let message = error && error.heads && error.heads.message
-        this.$toast(message)
-        this.resetLoginData()
+    onBlur (mark) {
+      if (mark === 1) {
+        // 账号被focus
+        this.accountFocus = false
+      } else if (mark === 2) {
+        // 密码被focus
+        this.passFocus = false
       }
     },
-    // 图形验证码验证
-    imgValidate () {
-      // 验证图形验证码
-      if (!this.canCloseImgAuth) {
-        this.$toast('亲，请输入四位图形验证码')
-      } else {
-        // 获取登录结果
-        this.sendSms(1)
-      }
-    },
-    // 发送短信验证码
-    sendSms (isImgSms) {
-      // 1.判断是否为倒计时状态
-      if (this.verCodeStatus === 1) {
-        return false
-      }
-      // 2.判断是否有手机号
-      if (!this.phone) {
-        this.$toast('手机号不能为空')
-        return false
-      }
-      if (!formChecker.checkPhone(this.phone)) {
-        this.$toast('手机号输入有误,请重新输入')
-        return false
-      }
-      let smsBody = {
-        mobile: this.phone
-      }
-      if (isImgSms) smsBody.authCodeName = this.imgSms
-      return global.ajax.post('v2/sms/getLoginSmsCode.json', smsBody)
-        .then(async res => {
-          const code = res.heads.code
-          if (code === 200) { // 短信发送成功
-            this.verCodeStatus = 1
-            this.$toast('短信发送成功')
-            if (isImgSms) {
-              this.imgAuthCodeShow = false
-              this.loginShow = true
-              this.imgSms = ''
-              this.imgAuthCodeSrc = ''
-            }
-            this.countDown()
-          } else if (code === 1003) { // 获取图像验证码
-            await this.getImgAuthCode()
-            this.loginShow = false
-            this.imgAuthCodeShow = true
-          } else if (code === 1002) { // 图片验证码错误
-            this.$toast('图片验证码错误')
-            await this.getImgAuthCode()
-            this.loginShow = false
-            this.imgAuthCodeShow = true
-          } else {
-            this.$toast(res.heads.message)
-          }
-        }).catch(err => {
-          this.$toast(err)
-        })
-    },
-    // 获取图形验证码
-    getImgAuthCode () {
-      return global.ajax.get('v2/writeImages', { params: { mobile: this.phone }, responseType: 'blob' })
-        .then(response => {
-          console.log(response instanceof Blob)
-          if (response instanceof Blob) {
-            let imgUrl = window.URL.createObjectURL(response)
-            this.imgAuthCodeSrc = imgUrl
-          }
-        })
-    },
-    // 普通方式登录
+    /**
+     * 登陆
+     * @param {string} account 用户名
+     * @param {number} method
+     * @param {string} password 密码
+     */
     login () {
-      let params
-      let inviterId = this.getQueryString('suid')
-      params = { mobile: this.phone, verCode: this.sms, registerType: this.registerType }
-      if (inviterId) {
-        params.encryptInvitationUserId = inviterId
-      }
-      return this.$api['user/gustLogin'](params)
-        .then(res => {
-          res.userId = res.suserId
-          this.muUserMetaInfo(res)
-        })
-    },
-    // 微信绑定登录
-    wxbindLogin () {
-      // console.log('微信绑定登录')
-      let openId = this.openId
-      if (!openId) {
-        // 并未能够获取微信
-        this.$toast('未发现微信绑定数据，无法登录')
-        return
-      }
-      return this.$api['user/bindingMoble']({
-        code: this.sms,
-        openId,
-        phoneNo: this.phone,
-        registerType: this.registerType
-      }).then(data => {
-        this.$tj('wx_bindLogin')
-        this.muUserMetaInfo(data)
+      this.$api['user/login'](
+        {
+          account: this.user.account,
+          method: 0,
+          password: md5(this.user.pwd)
+        }, { noStringify: true }
+      ).then(res => {
+        let data = res.data[0]
+        this.setUserIdentity({ access_token: data.access_token, refresh_token: data.refresh_token })
+        this.getCurrUserInfo()
+        this.$router.back()
       })
     },
-    ...mapMutations(['setLoginStatus'])
-  },
-  watch: {
-    sms (val) {
-      if (val && val.length > 6) {
-        this.sms = val.slice(0, 6)
-      }
-    },
-    imgSms (val) {
-      if (val && val.length > 4) {
-        this.imgSms = val.slice(0, 4)
-      }
-    },
-    phone (val) {
-      val = val || ''
-      let mobile = val.toString()
-      if (mobile && mobile.length > 11) {
-        this.phone = Number.parseInt(mobile.slice(0, 11))
-      }
-    },
-    loginStatus (val) {
-      if (val && !this.loginShow && !this.imgAuthCodeShow) {
-        this.loginShow = true
-        ModalHelper.afterOpen()
-      } else {
-        ModalHelper.beforeClose()
-      }
-    }
-  },
-  destroyed () {
-    clearInterval(this.timer)
+    ...mapMutations(['setUserIdentity']),
+    ...mapActions(['getCurrUserInfo'])
   }
 }
 </script>
 
-<style lang="scss">
-.disabled {
-  background: #f2f2f2 !important;
-  color: #999 !important;
-}
-.login {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10000;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.login__container {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-.sms {
-  padding: 50px;
-  border-radius: 20px;
-  background-color: #fff;
-  .field {
-    position: relative;
-    padding: 25px 10px;
-    text-align: left;
-    .input__wrap {
+<style scoped lang="scss">
+  .login_main{
+    height: 100%;
+    background-color: #fff !important;
+    box-sizing:border-box;
+    .login_form{
       position: relative;
-      height: 50px;
-      input {
-        display: inline-block;
-        margin-top: 1px;
-        height: 40px;
-        font-size: 28px;
-        font-family: PingFangSC-Regular;
-        color: #999999;
-        line-height: 40px;
-      }
-      div {
-        position: absolute;
-        top: 0px;
-        right: 0;
-        width: 176px;
-        background: rgba(227, 20, 54, 1);
-        border-radius: 24px;
-        color: #fff;
-        padding: 9px 0;
+      top: 32%;
+      transform: translateY(-50%);
+      .form_title{
         text-align: center;
-        span {
-          display: inline-block;
-          height: 33px;
+        margin-bottom: 100px;
+        p{
+          line-height: 50px;
+          font-size: 35px;
+          font-weight: bold;
+          span{
+            font-size: 30px;
+            color: #888888;
+            font-weight: normal;
+          }
+        }
+        img{
+          height: 34px;
+          position: relative;
+          top: 5px;
+          margin-right: 10px;
+        }
+      }
+
+      .form_input{
+        padding: 0px 45px;
+        > div {
+          height: 100px;
+          font-size: 32px;
+          line-height: 100px;
+          transition: 0.3s;
+          border-bottom: 1px solid #e1e1e1;
+
+          .van-field__left-icon{
+            border-right: 1px solid #e1e1e1;
+            padding-right: 34px;
+            margin-right: 31px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .van-field__body{
+            line-height: 58px;
+          }
+
+          input{
+            font-size: 34px;
+            color: #000;
+            &::-webkit-input-placeholder{
+              color: #e1e1e1;
+            }
+          }
+
+          i{
+            font-size: 34px;
+            color: #000;
+          }
+        }
+      }
+
+      .retrievePwd{
+        float: right;
+        color: #009688;
+        border-bottom: none !important;
+      }
+
+      .inputError{
+        border-bottom: 1px solid red !important;
+
+        i{
+          transition: 0.3s;
+          color: red;
+        }
+      }
+      .account-focus,.pass-focus{
+        border-bottom-color: #009688 !important;
+        i{
+          color: #009688 !important;
+        }
+      }
+    }
+
+    .login_botton{
+      width: 100%;
+      position: absolute;
+      bottom: 0px;
+      text-align: center;
+
+      p{
+        line-height: 100px;
+        color: #b1b1b1;
+        span, i{
+          color: #009688;
+        }
+        span{
+          font-size: 30px;
+        }
+        i{
           font-size: 24px;
-          font-family: PingFangSC-Regular;
-          color: rgba(255, 255, 255, 1);
-          line-height: 33px;
+        }
+      }
+      button{
+        width: 100%;
+        border: none;
+        background-color: #009688;
+        span{
+          color: white;
+          font-size: 34px;
         }
       }
     }
   }
-  .confirm {
-    width: 490px;
-    background-color: #e31436;
-    border-radius: 8px;
-    padding: 22px 0;
-    margin-top: 50px;
-    &.canNologin {
-      background: #ffabc1;
-    }
-
-    span {
-      display: inline-block;
-      height: 45px;
-      font-size: 32px;
-      font-family: PingFangSC-Regular;
-      color: rgba(255, 255, 255, 1);
-      line-height: 45px;
-    }
-  }
-}
-.imgSms {
-  padding: 50px;
-  border-radius: 20px;
-  background-color: #fff;
-  .field {
-    position: relative;
-    padding: 25px 10px;
-    text-align: left;
-    .input__wrap {
-      position: relative;
-      height: 50px;
-      input {
-        display: inline-block;
-        margin-top: 1px;
-        height: 40px;
-        font-size: 28px;
-        font-family: PingFangSC-Regular;
-        color: #999999;
-        line-height: 40px;
-      }
-      .imgContent {
-        position: absolute;
-        right: 0;
-        top: -10px;
-        width: 2.773333rem;
-        height: 60px;
-      }
-    }
-  }
-  .confirm {
-    width: 490px;
-    background-color: #e31436;
-    border-radius: 8px;
-    padding: 22px 0;
-    margin-top: 50px;
-    &.canNologin {
-      background: #ffabc1;
-    }
-    span {
-      display: inline-block;
-      height: 45px;
-      font-size: 32px;
-      font-family: PingFangSC-Regular;
-      color: rgba(255, 255, 255, 1);
-      line-height: 45px;
-    }
-  }
-}
 </style>
