@@ -6,7 +6,8 @@ module.exports = {
         'es6.map',
         'es6.set',
         'es6.weak-map',
-        'es6.array.find'
+        'es6.array.find',
+        'es6.promise'
       ]
     }]
   ],

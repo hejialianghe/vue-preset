@@ -1,14 +1,13 @@
 module.exports = {
   globals: {
-    WebViewJavascriptBridge: true,
-    _czc: true
   },
   rules: {
     'generator-star-spacing': 'off',
     'no-mixed-spaces-and-tabs': 'off',
     'no-tabs': 'off',
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-console': 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-underscore-dangle': ["off", "always"]
   },
   root: true,
   env: {

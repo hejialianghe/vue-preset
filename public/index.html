@@ -1,146 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover">
-  <link rel="icon" href="https://cdn.basestonedata.com/favicon.ico" type="image/x-icon"/>
-  <script type="text/javascript">
-    ;(function(win, lib) {
-      var doc = win.document
-      var docEl = doc.documentElement
-      var metaEl = doc.querySelector('meta[name="viewport"]')
-      var dpr = 0
-      var scale = 0
-      var tid
-      var flexible = lib.flexible || (lib.flexible = {})
-      if (metaEl) {
-        var match = metaEl
-          .getAttribute('content')
-          .match(/initial\-scale=([\d\.]+)/)
-        if (match) {
-          scale = parseFloat(match[1])
-          dpr = parseInt(1 / scale)
-        }
-      }
-      var devicePixelRatio = window.devicePixelRatio || 2
-      if (devicePixelRatio > 1 && devicePixelRatio <= 1.5) {
-        devicePixelRatio = 1
-      } else if (devicePixelRatio > 1.5 && devicePixelRatio <= 2) {
-        devicePixelRatio = 2
-      } else if (devicePixelRatio > 2 && devicePixelRatio <= 3) {
-        devicePixelRatio = 3
-      } else {
-        devicePixelRatio = 4
-      }
-      docEl.setAttribute('data-origin-dpr', devicePixelRatio)
-      docEl.setAttribute('data-dpr', dpr)
-
-      function refreshRem() {
-        var width = docEl.getBoundingClientRect().width
-        var rem = width / 10
-        docEl.style.fontSize = rem + 'px'
-        var computedFontSize = parseFloat(win.getComputedStyle(docEl).fontSize);
-        if (rem !== computedFontSize) {
-            rem = +(rem * rem / computedFontSize).toFixed(4);
-            docEl.style.fontSize = rem + 'px';
-        }
-        var scaleText = rem < 37.5 ? 'scale-font' : 'orgin-font'
-        docEl.setAttribute('data-scale', scaleText)
-        flexible.rem = win.rem = rem
-      }
-
-      win.addEventListener(
-        'resize',
-        function() {
-          clearTimeout(tid)
-          tid = setTimeout(refreshRem, 300)
-        },
-        false
-      )
-      win.addEventListener(
-        'pageshow',
-        function(e) {
-          if (e.persisted) {
-            clearTimeout(tid)
-            tid = setTimeout(refreshRem, 300)
-          }
-        },
-        false
-      )
-      if (doc.readyState === 'complete') {
-        doc.body.style.fontSize = 12 * dpr + 'px'
-      } else {
-        doc.addEventListener(
-          'DOMContentLoaded',
-          function(e) {
-            doc.body.style.fontSize = 12 * dpr + 'px'
-          },
-          false
-        )
-      }
-      refreshRem()
-    })(window, window['lib'] || (window['lib'] = {}))
-  </script>
-  <script type="text/javascript">
-    /**
-     * @param {Function} callback 回调函数
-     *
-    */
-    function setupWebViewJavascriptBridge(callback) {
-      if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge) }
-      if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback) }
-      window.WVJBCallbacks = [callback]
-      var WVJBIframe = document.createElement('iframe')
-      WVJBIframe.style.display = 'none'
-      WVJBIframe.src = 'xxyp://__bridge_loaded__'
-      document.documentElement.appendChild(WVJBIframe)
-      setTimeout(function () { document.documentElement.removeChild(WVJBIframe) }, 0)
-    }
-    setupWebViewJavascriptBridge(function () { })
-  </script>
-  <script type="text/javascript">
-    ;(function() {
-      if (document.scrollingElement) {
-        return
-      }
-      var element = null
-      function scrollingElement() {
-        if (element) {
-          return element
-        } else if (document.body.scrollTop) {
-          // speed up if scrollTop > 0
-          return (element = document.body)
-        }
-        var iframe = document.createElement('iframe')
-        iframe.style.height = '1px'
-        document.documentElement.appendChild(iframe)
-        var doc = iframe.contentWindow.document
-        doc.write('<!DOCTYPE html><div style="height:9999em">x</div>')
-        doc.close()
-        var isCompliant =
-          doc.documentElement.scrollHeight > doc.body.scrollHeight
-        iframe.parentNode.removeChild(iframe)
-        return (element = isCompliant
-          ? document.documentElement
-          : document.body)
-      }
-      Object.defineProperty(document, 'scrollingElement', {
-        get: scrollingElement
-      })
-    })()
-  </script>
-  <title>
-    my-project
-  </title>
-</head>
-
-<body>
-  <div id="app"></div>
-  <!-- built files will be auto injected -->
-  <script type="text/javascript">
-    location.href.indexOf('https://h5') === 0 && document.write('<script src="https://cdn.basestonedata.com/jlib/cdnProjectBaseResource.js"><\/script>')
-  </script>
-</body>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>vue-base</title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but vue-base doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
 </html>

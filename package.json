@@ -1,63 +1,47 @@
 {
-  "name": "my-project",
+  "name": "vue-base",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "build:dev": "vue-cli-service build --mode dev.build",
-    "build:local": "vue-cli-service build --mode local.build",
-    "build:prod": "vue-cli-service build --mode prod.build",
-    "deploy:dev": "cross-env DEPLOY_ENV=DEV sftpcli && cross-env DEPLOY_ENV=DEV osscli upload",
-    "deploy:local": "cross-env DEPLOY_ENV=LOCAL sftpcli && cross-env DEPLOY_ENV=LOCAL osscli upload",
-    "deploy:prod": "cross-env DEPLOY_ENV=PROD sftpcli && cross-env DEPLOY_ENV=PROD osscli upload",
+    "lint": "vue-cli-service --fix lint",
+    "test:unit": "vue-cli-service test:unit",
     "serve:dev": "vue-cli-service serve --mode dev.serve",
-    "serve:prod": "vue-cli-service serve --mode prod.serve"
+    "serve:prod": "vue-cli-service serve --mode prod.serve",
+    "build:dev": "vue-cli-service build --mode dev.build",
+    "build:prod": "vue-cli-service build --mode prod.build"
   },
   "dependencies": {
+    "amfe-flexible": "^2.2.1",
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
-    "insfns": "^2.1.4",
-    "mta-h5-analysis": "^2.0.15",
-    "vant": "^1.1.15",
-    "vue": "^2.6.6",
-    "vue-router": "^3.0.1",
+    "vant": "^2.0.9",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
-    "vuex-persistedstate": "^2.5.4",
-    "weixin-js-sdk": "^1.4.0-test"
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.5",
-    "@vue/cli-plugin-eslint": "^3.0.5",
-    "@vue/cli-service": "^3.0.5",
+    "@vue/cli-plugin-babel": "^3.9.0",
+    "@vue/cli-plugin-eslint": "^3.9.0",
+    "@vue/cli-plugin-unit-mocha": "^3.9.0",
+    "@vue/cli-service": "^3.9.0",
     "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/test-utils": "1.0.0-beta.29",
     "babel-eslint": "^10.0.1",
-    "babel-plugin-import": "^1.8.0",
+    "babel-plugin-import": "^1.12.0",
     "babel-plugin-lodash": "^3.3.4",
-    "cross-env": "^5.2.0",
-    "eslint": "^5.8.0",
+    "chai": "^4.1.2",
+    "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "lint-staged": "^8.1.4",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.15",
     "lodash-webpack-plugin": "^0.11.5",
-    "node-sass": "^4.9.0",
-    "ossupload": "^2.0.2",
-    "postcss-import": "^12.0.0",
+    "node-sass": "^4.12.0",
     "postcss-pxtorem": "^4.0.1",
-    "postcss-url": "^8.0.0",
+    "prettier": "^1.18.2",
     "sass-loader": "^7.1.0",
-    "sftpupload": "^1.0.0",
-    "terser-webpack-plugin": "^1.1.0",
-    "vue-template-compiler": "^2.5.21"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,vue}": [
-      "vue-cli-service lint",
-      "git add"
-    ]
+    "terser-webpack-plugin": "^1.4.1",
+    "vue-template-compiler": "^2.6.10"
   }
 }
