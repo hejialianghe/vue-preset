@@ -92,13 +92,15 @@ class MakeApi {
 function _normoalize (orginOptions, data) {
   let options = JSON.parse(JSON.stringify(orginOptions))
   let url = options.url
+
   // 动态路由
   // 1.查看路径中是否存有:
-  if (url.match(/:([^.]*)/)) {
+  if (url.match(/:([^/]*)/)) {
     // 2.将冒号后的参数取出并在传递的参数中得到结果并将其替换
-    let param = url.match(/:([^.]*)/)[1]
+    let param = url.match(/:([^/]*)/)[1]
     let p = data[param]
-    url = url.replace(/:([^.]*)/, p)
+
+    url = url.replace(/:([^/]*)/, p)
     delete data[param]
     options.url = url
   }

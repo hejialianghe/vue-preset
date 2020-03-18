@@ -15,8 +15,10 @@ export default [
     name: 'GetAffairsSubjectDic',
     method: 'GET',
     desc: '获取',
-    path: '/api/Dictionary/GetAffairsSubjectDic',
+    path: '/api/Dictionary/:GetAffairsSubjectDic',
     mockPath: '',
-    params: {}
+    params: {
+      GetAffairsSubjectDic: ''
+    }
   }
 ]
