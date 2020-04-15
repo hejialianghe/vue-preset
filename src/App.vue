@@ -4,7 +4,7 @@
       <keep-alive :include="keepAliveArr">
         <router-view class="Router"></router-view>
       </keep-alive>
-    </transition>>
+    </transition>
         <!-- 加载弹层 -->
     <Loading v-if="loadingStauts"></Loading>
   </div>

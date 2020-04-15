@@ -4,6 +4,7 @@ import home from '@/views/Home'
 import affairSelect from '@/views/AffairSelect/AffairSelect'
 import UserInfo from '@/views/UserInfo/UserInfo'
 import layout from '@/views/LayOut'
+import test from '@/views/test'
 const Login = () => import(/* webpackChunkName: "login" */'@/components/Login/Login')
 Vue.use(Router)
 
@@ -51,7 +52,11 @@ export default new Router({
           }
         }
       ]
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: test
     }
-
   ]
 })

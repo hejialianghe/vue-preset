@@ -23,5 +23,8 @@
       "wrapAttributes": false,
       "sortAttributes": true
     }
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   }
 }
