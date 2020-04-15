@@ -18,7 +18,7 @@ export default {
   },
   computed: {},
   mounted () {
-    this.$api['user/GetAffairsSubjectDic']().then(res => {})
+    this.$api['user/GetAffairsSubjectDic']({ GetAffairsSubjectDic: 'GetAffairsSubjectDic' }).then(res => {})
   },
   components: {},
   methods: {

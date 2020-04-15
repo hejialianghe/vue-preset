@@ -4,7 +4,7 @@ import router from '@/router'
 import { OLD_REQUEST } from '@/module/config'
 
 // 还有一些方便开发的配置
-export const CONSOLE_REQUEST_ENABLE = true // 开启请求参数打印
+export const CONSOLE_REQUEST_ENABLE = false // 开启请求参数打印
 export const CONSOLE_RESPONSE_ENABLE = false
 export function requestSuccessFunc (config) {
   // 保存最近一次组件的请求的信息 401时重新发起
