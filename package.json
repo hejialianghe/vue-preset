@@ -20,7 +20,8 @@
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
-    "vuex-persistedstate": "^2.5.4"
+    "vuex-persistedstate": "^2.5.4",
+    "z-feng-ui": "^2.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",

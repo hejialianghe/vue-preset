@@ -1,11 +1,13 @@
 const API = {}
-const regExp = new RegExp(/.\/(\w+).js$/g)
+const regExp = new RegExp(/.\/(\w+).js$/i)
+const requireApi = require.context('.', true, /.js$/)
 
-const requireApi = require.context('.', true, /[^index].js$/)
 requireApi.keys().forEach(element => {
   const config = requireApi(element)
   if (regExp.test(element)) {
-    API[RegExp.$1] = config.default
+    (RegExp.$1 !== 'index') && (API[RegExp.$1] = config.default)
+  } else {
+    console.error(`${element}'api文件名配置错误，只支持英文和数字`)
   }
 })
 
