@@ -19,7 +19,7 @@ export default {
   render () {
     return (
       <div>
-        <div class="title">八皇后问题</div>
+        <div class="title">jsx</div>
         <div class="grid">
           {
             this.grids.map((row, index) => {
