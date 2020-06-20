@@ -1,0 +1,16 @@
+language: node_js
+node_js: 
+  - lts/* #设置语言版本，lts表示稳定版
+branches:
+  only:
+    - master #设置只监听哪个分支
+cache:
+  apt: true
+  yarn: true
+  directories: 
+    - node_modules #缓存依赖
+install:  # 安装依赖
+  - yarn
+script:  # 需要执行的脚本
+    - yarn build
+    - sh ./deploy.sh
