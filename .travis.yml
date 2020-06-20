@@ -9,11 +9,18 @@ cache:
   yarn: true
   directories:
   - node_modules
+before_install:
+- openssl aes-256-cbc -K $encrypted_31539db9e051_key -iv $encrypted_31539db9e051_iv
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa # 降低 id_rsa 文件的权限
+- echo -e "Host 122.51.11.29\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config # 将生产服务器地址加入到测试机的信任列表中
 install:
 - yarn
 script:
 - yarn build:dev
 - sh ./deploy.sh
-before_install:
-- openssl aes-256-cbc -K $encrypted_31539db9e051_key -iv $encrypted_31539db9e051_iv
-  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
+
+addons:
+  ssh_known_hosts: 122.51.11.29 # 添加 SSH 信任列表
+after_success: # script 阶段成功时执行
+- scp  -o stricthostkeychecking=no -r ./dist/* root@122.51.11.29:/home/www/assets  # 使用scp拷贝到服务
