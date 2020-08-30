@@ -1,6 +1,7 @@
 module.exports = {
   presets: [
     ['@vue/app', {
+      useBuiltIns: 'usage',
       'polyfills': [
         'es6.weak-set',
         'es6.map',
@@ -13,6 +14,7 @@ module.exports = {
   ],
   plugins: [
     'lodash',
+    ['@babel/plugin-transform-runtime'],
     [
       'import',
       {

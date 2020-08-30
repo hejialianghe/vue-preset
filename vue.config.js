@@ -9,6 +9,7 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin')
 module.exports = {
   publicPath: isProd ? `${env.WEBPACK_PATH}` : '/',
   configureWebpack: config => {
+    config.mode = isProd ? 'production' : 'development'
     if (isProd) {
       // lodash实现按需打包
       config.plugins.push(new LodashModuleReplacementPlugin())
