@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <transition :name="transitionName">
-      <keep-alive :include="keepAliveArr">
-        <router-view class="Router"></router-view>
-      </keep-alive>
-    </transition>
+      <!-- <keep-alive :include="keepAliveArr">
+        <router-view ></router-view>
+      </keep-alive> -->
+       <router-view ></router-view>
         <!-- 加载弹层 -->
     <Loading v-if="loadingStauts"></Loading>
+
   </div>
 </template>
 <script>
@@ -16,8 +16,7 @@ export default {
   name: 'App',
   data () {
     return {
-      loadingStauts: false,
-      transitionName: 'slide-left'
+      loadingStauts: false
     }
   },
   components: {
@@ -30,7 +29,8 @@ export default {
     this.bindEvent()
     this.setUserInfo()
   },
-  mounted () {},
+  mounted () {
+  },
   methods: {
     bindEvent () {
       global.vbus.$on('toast_show', (resData) => {
@@ -64,24 +64,6 @@ export default {
 body.modal-open {
     position: fixed;
     width: 100%;
-}
-.Router {
-  position: absolute;
-  width: 100%;
-  transition: all 0.3s ease;
-  top: 0px;
-}
-
-.slide-left-enter,
-.slide-right-leave-active {
-  -webkit-transform: translate(100%, 0);
-  transform: translate(100%, 0);
-}
-
-.slide-left-leave-active,
-.slide-right-enter {
-  -webkit-transform: translate(-100%, 0);
-  transform: translate(-100% 0);
 }
 
 </style>

@@ -5,7 +5,7 @@ import _isEmpty from 'lodash/isEmpty'
 
 import { assert } from '@/module/common'
 import API_CONFIG from '@/service/api'
-console.log(API_CONFIG)
+
 // API 默认配置
 const API_DEFAULT_CONFIG = {
   mockBaseURL: '', // mock请求的BaseURL
