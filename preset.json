@@ -7,9 +7,5 @@
         "lintOn": ["save", "commit"]
       }
     },
-    "router": true,
-  "routerHistoryMode": true,
-  "vuex": true,
-
     "cssPreprocessor": "sass" 
   }

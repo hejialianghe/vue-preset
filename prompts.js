@@ -1,11 +1,11 @@
 module.exports=[
     {
+        name:'application',
         type:'list',
-        name:'project',
         message:'请选择你要生成的项目类型',
         choices:[
-            {name:'pc-web',value:'pc-web'},
-            {name:'mobile-web',value:'mobile-web'}
+            {name:'pc',value:'pc'},
+            {name:'mobile',value:'mobile'}
         ],
         defalut:'mobile-web'
     }
