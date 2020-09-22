@@ -1,0 +1,12 @@
+module.exports=[
+    {
+        type:'list',
+        name:'project',
+        message:'请选择你要生成的项目类型',
+        choices:[
+            {name:'pc-web',value:'pc-web'},
+            {name:'mobile-web',value:'mobile-web'}
+        ],
+        defalut:'mobile-web'
+    }
+]

@@ -1,7 +1,7 @@
-{
-  "name": "vue-base",
-  "version": "0.1.0",
-  "private": true,
+module.exports=(api,options,rootOptions)=>{
+
+    api.extendPackage({
+ 
   "scripts": {
     "serve": "yarn serve:dev",
     "build": "yarn build:prod",
@@ -54,6 +54,8 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "vue-template-compiler": "^2.6.10",
     "webpack-bundle-analyzer": "^3.8.0",
-    "webpack-cli": "^3.3.11"
+
   }
+    })
+    api.render('./template')
 }
