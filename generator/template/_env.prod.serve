@@ -1,5 +1,3 @@
-NODE_ENV=development
-VUE_APP_API_BASEURL=https://api.xiaoxiangyoupin.com
-VUE_APP_DEPLOY_ROUTER_PATH=/digitalrecycle
-VUE_APP_API_ENV=api
-VUE_APP_APP_NAME=test
+VUE_APP_NODE_ENV=development
+VUE_APP_API_BASEURL=''
+VUE_APP_SERVEN=PROD

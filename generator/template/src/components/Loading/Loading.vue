@@ -1,7 +1,7 @@
 <template>
   <div class="loading">
     <div class="loading__container">
-      <van-loading color="black" />
+      <van-loading />
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@ export default {
 }
 </script>
 
-<style scoped lang="css">
+<style scoped lang="scss">
 .loading {
   position: fixed;
   left: 0;
@@ -36,5 +36,9 @@ export default {
   color: white;
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
+}
+.van-loading__spinner{
+  width: 100%;
+  height: 100%;
 }
 </style>

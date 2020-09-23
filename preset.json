@@ -7,5 +7,5 @@
         "lintOn": ["save", "commit"]
       }
     },
-    "cssPreprocessor": "sass" 
+    "cssPreprocessor": "sass"
   }

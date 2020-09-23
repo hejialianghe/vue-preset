@@ -1,24 +1,15 @@
 import Vue from 'vue'
-import App from './App'
-import router from './routes'
+import App from './App.vue'
+import router from './router/index'
 import './global'
-import store from '@/plugins/store'
-import { apSetTitle } from '@/module/appbridge'
-
-Vue.config.productionTip = false
-
+import store from './store/index'
+import { OLD_REQUEST } from './module/config'
 router.beforeEach((to, from, next) => {
-  if (to.meta.title) {
-    document.title = to.meta.title
-    apSetTitle(to.meta.title)
-  }
+  OLD_REQUEST.length = 0
   next()
 })
-
-/* eslint-disable no-new */
 new Vue({
-  el: '#app',
   router,
   store,
   render: h => h(App)
-})
+}).$mount('#app')

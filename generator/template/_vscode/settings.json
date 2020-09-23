@@ -1,6 +1,6 @@
 {
   "csscomb.preset": "zen",
-  "csscomb.formatOnSave": true,
+  "csscomb.formatOnSave": false,
   "eslint.autoFixOnSave": true,
   "eslint.enable": true,
   "eslint.validate": [
@@ -21,7 +21,10 @@
       "printWidth": 100,
       "singleQuote": true,
       "wrapAttributes": false,
-      "sortAttributes": false
+      "sortAttributes": true
     }
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   }
 }
