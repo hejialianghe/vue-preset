@@ -1,9 +1,15 @@
-import { getQueryString } from '@/module/common'
-import { mapGetters, mapState } from 'vuex'
+import { appAgentBol, wxAgentBol, getQueryString } from 'insfns'
+import { mapGetters } from 'vuex'
+
 export default {
   computed: {
-    ...mapGetters(['access_token', 'refresh_token']),
-    ...mapState({ userInfo: state => state.user.userInfo })
+    isApp () {
+      return appAgentBol()
+    },
+    isWx () {
+      return wxAgentBol()
+    },
+    ...mapGetters(['userToken', 'userId'])
   },
   methods: {
     getQueryString (name, defaultVal = null) {

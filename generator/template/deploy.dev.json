@@ -1,0 +1,20 @@
+{
+  "sftp": {
+    "target": "/opt/tomcat7/webapps/digitalrecycle/index.html",
+    "path": "./dist/index.html",
+    "host": "153.35.182.26",
+    "port": "1231",
+    "username": "root",
+    "password": "ys654123"
+  },
+  "oss": {
+    "path": "./dist",
+    "target": "/dev/digitalrecycle",
+    "ossConfig": {
+      "key": "LTAIQdIV3x9SWLjc",
+      "secret": "0iCLoUIefFRUVRliMWC0YqMvsrVjdb",
+      "region": "oss-cn-hangzhou",
+      "bucket": "xiaoxiangyoupin"
+    }
+  }
+}
