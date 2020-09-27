@@ -1,5 +1,6 @@
 {
-    "useConfigFiles": true,  
+    "useConfigFiles": true,
+    "cssPreprocessor": "sass",
     "plugins": {
       "@vue/cli-plugin-babel": {},
       "@vue/cli-plugin-eslint": {
@@ -7,5 +8,24 @@
         "lintOn": ["save", "commit"]
       }
     },
-    "cssPreprocessor": "sass"
+    "configs": {
+      "eslintConfig": {
+        "globals": {
+          "WebViewJavascriptBridge": true,
+          "_czc": true
+        },
+        "rules": {
+          "generator-star-spacing": "off",
+          "no-mixed-spaces-and-tabs": "off",
+          "no-tabs": "off",
+          "no-console": "off"
+        }
+      },
+      "browserslist": [
+        "last 2 versions",
+        "iOS >= 8",
+        "Android > 4.2"
+      ]
+    }
   }
+  
