@@ -1,27 +1,22 @@
+const plugins = [];
+
+<%_ if (options['mobile-ui-framework'] === 'vant') { _%>
+plugins.push(
+  ['import', {
+    libraryName: 'vant',
+    libraryDirectory: 'es',
+    style: true
+  }, 'vant']
+);
+<%_ } _%>
+
 module.exports = {
   presets: [
-    ['@vue/app', {
-      useBuiltIns: 'usage',
-      'polyfills': [
-        'es6.weak-set',
-        'es6.map',
-        'es6.set',
-        'es6.weak-map',
-        'es6.array.find',
-        'es6.promise'
-      ]
-    }]
-  ],
-  plugins: [
-    'lodash',
-    ['@babel/plugin-transform-runtime'],
-    [
-      'import',
+    ['@vue/cli-plugin-babel/preset',
       {
-        'libraryName': 'vant',
-        'libraryDirectory': 'es',
-        'style': true
+        useBuiltIns: 'entry'
       }
     ]
-  ]
-}
+  ],
+  plugins
+};

@@ -1,7 +1,0 @@
-NODE_ENV=production
-NODE_ENV=production
-WEBPACK_PATH=https://cdn.basestonedata.com/dev/test
-VUE_APP_API_BASEURL=https://api.xiaoxiangyoupin.com
-VUE_APP_DEPLOY_ROUTER_PATH=/test
-VUE_APP_API_ENV=api
-VUE_APP_APP_NAME=test
