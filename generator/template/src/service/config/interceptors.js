@@ -60,7 +60,7 @@ export function responseSuccessFunc (res) {
       return result || {}
     default:
       // 业务中还会有一些特殊 code 逻辑，我们可以在这里做统一处理，也可以下方它们到业务层
-      let message = result.err.msg || result.heads.message || result.heads.errorMsg || `业务错误:${result.heads.code}` || '服务器错误'
+      let message = result.err.msg  || '服务器错误'
       if (!res.config.noShowDefaultError) {
         global.vbus.$emit('toast_show', message)
       }
