@@ -73,6 +73,6 @@ module.exports = (api, options, rootOptions) => {
     //         }
     //       });
     // }
-    console.log('测试2');
+ 
     api.render('./template')
 }
