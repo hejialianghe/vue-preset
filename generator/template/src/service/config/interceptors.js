@@ -60,12 +60,8 @@ export function responseSuccessFunc (res) {
       return result || {}
     default:
       // 业务中还会有一些特殊 code 逻辑，我们可以在这里做统一处理，也可以下方它们到业务层
-      let message = result.err.msg  || '服务器错误'
       if (!res.config.noShowDefaultError) {
-        global.vbus.$emit('toast_show', message)
-      }
-      if (result.err && result.err.code === 401) {
-        getAccessToken()
+        global.vbus.$emit('toast_show', result.err.msg  || '服务器错误')
       }
       return Promise.reject(result.err || result)
   }
@@ -124,28 +120,4 @@ export function responseFailFunc (err) {
   !err.response.config.noShowDefaultError && global.vbus.$emit('toast_show', err.message)
   !err.response.config.noShowLoading && global.vbus.$emit('loading_show', false)
   return Promise.reject(err)
-}
-
-function getAccessToken () {
-  let userIdentity = sessionStorage.getItem('userIdentity') || null
-  userIdentity = JSON.parse(userIdentity)
-  if (!userIdentity || !userIdentity.refresh_token) {
-    global.vbus.$emit('toast_show', '身份信息过期，请重新登陆!')
-    setTimeout(function () {
-      router.push({ name: 'login' })
-    }, 1000)
-  }
-  axios.post(`${process.env.VUE_APP_API_BASEURL}/api/user/create`, null, {
-    headers: {
-      Authorization: userIdentity.refresh_token
-    }
-  }).then(res => {
-    userIdentity.access_token = res.data.data[0].access_token
-    sessionStorage.setItem('userIdentity', JSON.stringify(userIdentity))
-  }).catch(err => {
-    global.vbus.$emit('toast_show', err.msg || '身份信息过期，请重新登陆!')
-    setTimeout(function () {
-      router.push({ name: 'login' })
-    }, 1000)
-  })
 }
