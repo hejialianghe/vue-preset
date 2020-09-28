@@ -13,7 +13,6 @@ module.exports = (api, options, rootOptions) => {
             "dll": "webpack -p --progress --config ./webpack.dll.conf.js",
             "serve:dist": "http-server -p 9090 dist/"
         }
-
     })
     api.extendPackage({   
             "dependencies": {
@@ -39,7 +38,7 @@ module.exports = (api, options, rootOptions) => {
                 "clean-webpack-plugin": "^3.0.0",
                 "compression-webpack-plugin": "^4.0.0",
                 "eslint": "^6.7.2",
-                "eslint-plugin-vue": "^5.0.0",
+                "eslint-plugin-vue": "^6.2.2",
                 "lodash": "^4.17.15",
                 "lodash-webpack-plugin": "^0.11.5",
                 "node-sass": "^4.12.0",
@@ -49,7 +48,6 @@ module.exports = (api, options, rootOptions) => {
                 "uglifyjs-webpack-plugin": "^2.2.0",
                 "vue-template-compiler": "^2.6.10",
                 "webpack-bundle-analyzer": "^3.8.0",
-
          }
     })
     if(options.application=== 'pc') {
@@ -70,6 +68,5 @@ module.exports = (api, options, rootOptions) => {
             }
           });
     }
- 
     api.render('./template')
 }

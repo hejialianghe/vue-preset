@@ -1,6 +1,4 @@
 import qs from 'qs' // 开启响应参数打印
-import axios from 'axios'
-import router from '@/router'
 import { OLD_REQUEST } from '@/module/config'
 
 // 还有一些方便开发的配置
