@@ -1,4 +1,7 @@
 module.exports = (api, options, rootOptions) => {
+    if(options.vuex){
+        require('./utils')(api);
+    }
     api.extendPackage({
         "scripts": {
             "serve": "yarn serve:dev",
