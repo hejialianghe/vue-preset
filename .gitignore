@@ -1,6 +1,7 @@
 node_modules
 /dist
 /myject
+/myject2
 # local env files
 .env.local
 .env.*.local
