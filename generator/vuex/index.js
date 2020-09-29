@@ -1,3 +1,3 @@
 module.exports = (api) => {
-    api.render("./vuex");
+    api.render('./store')
 }
