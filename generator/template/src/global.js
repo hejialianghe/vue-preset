@@ -14,7 +14,7 @@ Vue.use(api)
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(api)
-    use(ElementUI)
+    .use(ElementUI)
 <%_ } _%>
 import base from '@/mixins/default'
 import directs from '@/module/directives'

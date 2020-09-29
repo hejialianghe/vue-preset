@@ -8,5 +8,10 @@ module.exports=[
           {name:'mobile',value:'mobile'}
       ],
       defalut:'mobile-web'
+  },
+  {
+    name: "vuex",
+    type: "confirm",
+    message: `是否使用vuex`
   }
 ]
