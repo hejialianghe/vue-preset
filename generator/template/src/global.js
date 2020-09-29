@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import api from '@/service/config'
 <%_ if(options.application === 'mobile'){ _%>
 import {
   Toast,
@@ -12,11 +13,12 @@ Vue.use(api)
 <%_ } else  {_%>
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-Vue.use(ElementUI)
+Vue.use(api)
+    use(ElementUI)
 <%_ } _%>
 import base from '@/mixins/default'
 import directs from '@/module/directives'
-import api from '@/service/config'
+
 import * as filters from '@/module/filters'
 
 Vue.config.productionTip = false
