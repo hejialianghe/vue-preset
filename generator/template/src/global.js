@@ -1,28 +1,29 @@
 import Vue from 'vue'
+<%_ if(options.application === 'mobile'){ _%>
 import {
   Toast,
-  Loading,
-  Tabbar,
-  TabbarItem,
-  Field,
-  Button
+  Loading
 } from 'vant'
-import base from '@/mixins/default'
-import directs from '@/module/directives'
-import api from '@/service/config'
-import * as filters from '@/module/filters'
 import 'amfe-flexible/index.js'
-Vue.config.productionTip = false
-/** 注册eventBus */
-global.vbus = new Vue()
 /** 注册组件 */
 Vue.use(api)
   .use(Toast)
   .use(Loading)
-  .use(Tabbar)
-  .use(TabbarItem)
-  .use(Field)
-  .use(Button)
+<%_ } else  {_%>
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
+<%_ } _%>
+import base from '@/mixins/default'
+import directs from '@/module/directives'
+import api from '@/service/config'
+import * as filters from '@/module/filters'
+
+Vue.config.productionTip = false
+/** 注册eventBus */
+global.vbus = new Vue()
+
+
 
 /** 添加自定义指令 */
 for (let direct in directs) {

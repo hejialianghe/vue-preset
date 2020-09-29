@@ -68,6 +68,7 @@ module.exports = (api, options, rootOptions) => {
         api.extendPackage({
             dependencies: {
               'element-ui': '^2.8.2'
+              
             }
           });
     }
