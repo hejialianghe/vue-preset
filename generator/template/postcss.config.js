@@ -26,7 +26,7 @@
   }
 }
 
-<%_ } else_%>
+<%_ } else _%>
 module.exports = { 
   plugins:{
     autoprefixer: {
