@@ -1,7 +1,3 @@
-* {
-  list-style: none
-}
-
 body,
 html {
   min-height: 100%;
@@ -157,9 +153,4 @@ ul {
 
 .font38 {
   font-size: 38px;
-}
-
-.width30 {
-  width: 30px;
-  height: 30px;
 }

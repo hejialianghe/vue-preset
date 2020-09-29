@@ -4,4 +4,10 @@
 - generator 一个可以注入或是修改项目中文件的generator
 - prompts 一个可以用命令行对话为generator提供选项的prompts文件
 
+### 创建方法
+
+```bash
+ vue create --preset hejialianghe/vue-preset 项目名
+```
+
 
