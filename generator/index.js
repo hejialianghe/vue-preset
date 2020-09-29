@@ -24,7 +24,6 @@ module.exports = (api, options, rootOptions) => {
                 "vuex-persistedstate": "^2.5.4"
             },
             "devDependencies": {
-                "@babel/cli": "^7.8.4",
                 "@babel/plugin-transform-runtime": "^7.11.0",
                 "@babel/preset-env": "^7.9.6",
                 "@vue/cli-plugin-babel": "^4.5.0",
@@ -41,9 +40,9 @@ module.exports = (api, options, rootOptions) => {
                 "eslint-plugin-vue": "^6.2.2",
                 "lodash": "^4.17.15",
                 "lodash-webpack-plugin": "^0.11.5",
-                "node-sass": "^4.12.0",
                 "prettier": "^1.18.2",
-                "sass-loader": "^7.1.0",
+                "sass": "^1.26.5",
+                "sass-loader": "^8.0.2",
                 "terser-webpack-plugin": "^1.4.1",
                 "uglifyjs-webpack-plugin": "^2.2.0",
                 "vue-template-compiler": "^2.6.10",
