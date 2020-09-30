@@ -1,6 +1,6 @@
 module.exports = (api, options, rootOptions) => {
     if(options.vuex){
-        require('./vuex')(api);
+        // require('./vuex')(api);
     }
     api.extendPackage({
         "scripts": {
