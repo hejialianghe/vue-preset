@@ -19,7 +19,7 @@
     ]
   }
  
-<%_ } else _%>
+<%_ } else { _%>
 module.exports = {
   presets: [
     ['@vue/cli-plugin-babel/preset', {
