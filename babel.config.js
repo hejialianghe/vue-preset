@@ -31,5 +31,4 @@ module.exports = {
     ['@babel/plugin-transform-runtime']
   ]
 }
-<%_ } _%}
-
+<%_ } _%>
