@@ -10,7 +10,7 @@ import 'amfe-flexible/index.js'
 Vue.use(api)
   .use(Toast)
   .use(Loading)
-<%_ } else  {_%>
+<%_ } else  { _%>
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(api)
