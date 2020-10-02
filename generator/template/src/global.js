@@ -1,4 +1,7 @@
 import Vue from 'vue'
+import base from '@/mixins/default'
+import directs from '@/module/directives'
+import * as filters from '@/module/filters'
 import api from '@/service/config'
 <%_ if(options.application === 'mobile'){ _%>
 import {
@@ -8,25 +11,19 @@ import {
 import 'amfe-flexible/index.js'
 /** 注册组件 */
 Vue.use(api)
-  .use(Toast)
-  .use(Loading)
+   .use(Toast)
+   .use(Loading)
 <%_ } else  { _%>
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(api)
-    .use(ElementUI)
+   .use(ElementUI)
 <%_ } _%>
 
-import base from '@/mixins/default'
-import directs from '@/module/directives'
-
-import * as filters from '@/module/filters'
 
 Vue.config.productionTip = false
 /** 注册eventBus */
 global.vbus = new Vue()
-
-
 
 /** 添加自定义指令 */
 for (let direct in directs) {
