@@ -22,9 +22,7 @@ module.exports = (api, options, rootOptions) => {
                 "@babel/runtime": "^7.11.2",
                 "axios": "^0.18.0",
                 "vue": "^2.6.11",
-                "vue-router": "^3.2.0",
-                "vuex": "^3.4.0",
-                "vuex-persistedstate": "^2.5.4"
+                "vue-router": "^3.2.0"
             },
             "devDependencies": {
                 "@babel/plugin-transform-runtime": "^7.11.0",

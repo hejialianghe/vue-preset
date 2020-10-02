@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import '../../../global'
+import './global'
+<%_ if(options.vuex){ _%>
 import store from './store'
+<%_ } _%>
 
 new Vue({
   router,
