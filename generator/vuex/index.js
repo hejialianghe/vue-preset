@@ -1,3 +1,3 @@
 module.exports = (api) => {
-    api.render('./store')
+    api.render('./template')
 }
