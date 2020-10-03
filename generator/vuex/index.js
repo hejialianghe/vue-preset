@@ -1,5 +1,5 @@
 module.exports = (api) => {
-    api.render('./template')
+    api.render('./templates')
     api.extendPackage({
      dependencies: {
         "vuex": "^3.4.0",
