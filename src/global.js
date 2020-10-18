@@ -14,6 +14,7 @@ import * as filters from '@/module/filters'
 import '@/assets/css/iconfont.css'
 import 'amfe-flexible/index.js'
 import navigationHeader from './components/NavigationHeader/NavigationHeader'
+import '@/components/Test/index.js'
 Vue.config.productionTip = false
 /** 注册eventBus */
 global.vbus = new Vue()

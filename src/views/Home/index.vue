@@ -14,7 +14,6 @@ export default {
   },
   computed: {},
   mounted () {
-
   },
   components: {},
   methods: {
